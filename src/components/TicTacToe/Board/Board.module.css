@@ -1,0 +1,30 @@
+.container {
+  width: 900px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 40px auto;
+  border: 3px solid black;
+}
+.board {
+  display: grid;
+  margin-bottom: 10px;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.turn {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 30px;
+  color: aqua;
+}
+.reset {
+  display: block;
+  padding: 10px;
+  border: 2px solid rgb(33, 109, 170);
+  border-radius: 50%;
+  background-color: antiquewhite;
+  margin: 0 auto;
+}

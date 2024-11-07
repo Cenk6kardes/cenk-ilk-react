@@ -1,0 +1,13 @@
+.section {
+}
+.products_container {
+  display: grid;
+  padding: 0 30px 0 110px;
+  justify-content: space-evenly;
+  column-gap: 30px;
+  row-gap: 30px;
+  grid-template-columns: repeat(4, auto);
+}
+
+.product {
+}

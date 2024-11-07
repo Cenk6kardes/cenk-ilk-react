@@ -1,0 +1,36 @@
+.toastr {
+  position: fixed;
+  top: 20px;
+  right: 46%;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  transition: opacity 0.6s ease-out;
+  animation: slideIn 0.5s ease-out;
+}
+
+.success {
+  background-color: rgba(20, 174, 20, 0.772);
+}
+.warning {
+  background-color: rgba(223, 167, 15, 0.78);
+}
+.danger {
+  background-color: rgba(229, 7, 7, 0.668);
+}
+
+.toastr p {
+  margin: 0;
+  font-size: 14px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
