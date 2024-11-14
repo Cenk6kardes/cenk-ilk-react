@@ -1,13 +1,16 @@
 import httpFetch from "../../util/fetch";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classes from "./ProductDetail.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../store/cartSlice";
 import { showToastr } from "../../store/toastrSlice";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProductDetail() {
   const dispatch = useDispatch();
-  const product = useLoaderData();
+  const params = useParams();
+  const { data: product } = useQuery(productDetailQuery(params.productId));
+
   const cartItem = useSelector((state) => state.cart.items.find((itemInsideCart) => itemInsideCart.id === product.id));
   let quantity = 0;
   if (cartItem) {
@@ -60,8 +63,16 @@ export default function ProductDetail() {
   );
 }
 
-export const loader = async ({ params }) => {
-  return await httpFetch(
-    `https://react-shopping-16a1b-default-rtdb.europe-west1.firebasedatabase.app/products/${params.productId}.json`
-  );
-};
+const productDetailQuery = (id) => ({
+  queryKey: ["product", "detail", id],
+  queryFn: async () =>
+    httpFetch(`https://react-shopping-16a1b-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`)
+});
+
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const query = productDetailQuery(params.productId);
+
+    return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+  };

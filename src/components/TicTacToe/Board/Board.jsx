@@ -64,6 +64,7 @@ export default function Board() {
         onClick={() => {
           setBoard(initialBoard);
           setIsGameOver(false);
+          setTurn("X");
         }}
       >
         Reset

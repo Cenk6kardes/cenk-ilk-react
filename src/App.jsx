@@ -1,10 +1,9 @@
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import Toastr from "./components/Toastr/Toastr";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./util/routes";
 import { useSelector } from "react-redux";
-
-const queryClient = new QueryClient();
+import { queryClient } from "./util/routes";
 
 function App() {
   const toastrVisible = useSelector((state) => state.toastr.isVisible);
