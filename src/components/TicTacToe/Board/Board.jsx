@@ -9,6 +9,7 @@ export default function Board() {
   const [turn, setTurn] = useState("X");
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
+  const [winnerSquares, setWinnerSquares] = useState([]);
 
   useEffect(() => {
     checkWinner();
@@ -43,19 +44,21 @@ export default function Board() {
       [0, 3, 6],
       [2, 5, 8]
     ];
-    conditions.forEach((position) => {
+    conditions.forEach((position, index) => {
       if (
         board[position[0]] !== "" &&
         board[position[0]] === board[position[1]] &&
         board[position[0]] === board[position[2]]
       ) {
         setWinner(board[position[0]]);
+        setWinnerSquares([...conditions[index]]);
       }
     });
   }
 
   function resetBoard() {
     setBoard(initialBoard);
+    setWinnerSquares([]);
     setIsGameOver(false);
     setWinner("");
     setTurn("X");
@@ -69,7 +72,13 @@ export default function Board() {
 
       <div className={classes.board}>
         {board.map((val, index) => (
-          <Square key={index} value={val} onSquareClick={onSelect.bind(index)} className={classes.square}></Square>
+          <Square
+            key={index}
+            value={val}
+            isWinnerSquare={winnerSquares.includes(index)}
+            onSquareClick={onSelect.bind(index)}
+            className={classes.square}
+          ></Square>
         ))}
       </div>
       <button className={classes.reset} onClick={resetBoard}>
