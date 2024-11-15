@@ -4,7 +4,8 @@ function calculateQuantity(products) {
   return products.reduce((a, b) => a + b.quantity, 0);
 }
 function calculatePrice(products) {
-  return products.reduce((a, b) => a + b.price * b.quantity, 0);
+  const total = products.reduce((a, b) => a + b.price * b.quantity, 0);
+  return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(total);
 }
 
 export const cartSlice = createSlice({
