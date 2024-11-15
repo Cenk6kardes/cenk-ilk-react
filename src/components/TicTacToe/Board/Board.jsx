@@ -35,7 +35,9 @@ export default function Board() {
       [3, 4, 5],
       [6, 7, 8],
       [0, 4, 8],
-      [2, 4, 6]
+      [2, 4, 6],
+      [0, 3, 6],
+      [2, 5, 8]
     ];
     conditions.forEach((position) => {
       if (
@@ -52,7 +54,7 @@ export default function Board() {
   return (
     <div className={classes.container}>
       {isGameOver && <h3 className={classes.turn}>Winner {turn}</h3>}
-      {!isGameOver && <h3 className={classes.turn}>Turn Of "{turn}"</h3>}
+      {!isGameOver && <h3 className={classes.turn}>Turn Of &quot;{turn}&quot;</h3>}
 
       <div className={classes.board}>
         {board.map((val, index) => (
