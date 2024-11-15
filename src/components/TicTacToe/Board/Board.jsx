@@ -8,10 +8,14 @@ export default function Board() {
   const [board, setBoard] = useState(initialBoard);
   const [turn, setTurn] = useState("X");
   const [isGameOver, setIsGameOver] = useState(false);
+  const [winner, setWinner] = useState("");
 
   useEffect(() => {
     checkWinner();
-  }, [board]);
+    if (winner || !board.includes("")) {
+      setIsGameOver(true);
+    }
+  }, [winner, board]);
 
   function onSelect() {
     if (board[this] !== "" || isGameOver) {
@@ -45,30 +49,30 @@ export default function Board() {
         board[position[0]] === board[position[1]] &&
         board[position[0]] === board[position[2]]
       ) {
-        setIsGameOver(true);
-        setTurn(board[position[0]]);
+        setWinner(board[position[0]]);
       }
     });
   }
 
+  function resetBoard() {
+    setBoard(initialBoard);
+    setIsGameOver(false);
+    setWinner("");
+    setTurn("X");
+  }
+
   return (
     <div className={classes.container}>
-      {isGameOver && <h3 className={classes.turn}>Winner {turn}</h3>}
+      {winner && <h3 className={classes.turn}>Winner {winner}</h3>}
       {!isGameOver && <h3 className={classes.turn}>Turn Of &quot;{turn}&quot;</h3>}
+      {!winner && isGameOver && <h3 className={classes.turn}>No winner</h3>}
 
       <div className={classes.board}>
         {board.map((val, index) => (
           <Square key={index} value={val} onSquareClick={onSelect.bind(index)} className={classes.square}></Square>
         ))}
       </div>
-      <button
-        className={classes.reset}
-        onClick={() => {
-          setBoard(initialBoard);
-          setIsGameOver(false);
-          setTurn("X");
-        }}
-      >
+      <button className={classes.reset} onClick={resetBoard}>
         Reset
       </button>
     </div>
